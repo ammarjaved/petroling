@@ -53,6 +53,9 @@
         #map{
             z-index: 1;
         }
+        .side-bar::-webkit-scrollbar {
+  display: none;
+}
     </style>
 
 
@@ -234,10 +237,10 @@
     <div class="row m-2">
         <div class="col-2 p-0">
             <div class="card p-0 m-0"
-                style="border: 1px solid rgb(177, 175, 175) !important; border-radius: 0px !important; height: 100% !important;">
+                style="border: 1px solid rgb(177, 175, 175) !important; border-radius: 0px !important">
                 <div class="card-header"><strong> NAVIGATION</strong></div>
-                <div class="card-body">
-
+                <div class="card-body" >
+<div class="side-bar" style="height: 569px !important; overflow-y: scroll;">
                     <div class="col-md-12 mb-2" class="form-group">
                         <label >Select Info Layer :</label>
                         <select class="form-select" id="tableLayer" onchange="activeSelectedLayerOther(this.value)">
@@ -287,7 +290,8 @@
                         <li > <input type="checkbox" name="" id="tiang_a"> <label for="tiang_a">Pendaftaran aset, pemeriksaan visual </label> </li>
                         <li ><input type="checkbox" name="" id="tiang_b"> <label for="tiang_b">Pembersihan iklan haram/banner</label> </li>
                         <li ><input type="checkbox" name="" id="tiang_c"> <label for="tiang_c">Pembersihan creepers</label> </li>
-                        <li ><input type="checkbox" name="" id="tiang_d"> <label for="tiang_d">Report</label> </li>
+                        <li><input type="checkbox" name="" id="tiang_d"> <label for="tiang_d">Pemeriksaan kebocoran arus pada tiang</label></li>
+                        <li ><input type="checkbox" name="" id="tiang_e"> <label for="tiang_e">Report</label> </li>
                          </ul>
                       </details>
 
@@ -314,7 +318,7 @@
                     
                  
                     <!-- <div id="my_data"></div> -->
-
+                </div>
                 </div>
             </div>
         </div>
