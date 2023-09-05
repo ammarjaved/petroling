@@ -25,6 +25,9 @@
     
         <link rel="stylesheet" href="./assets/lib/images_slider/css-view/lightbox.css">
         <script src="./assets/lib/images_slider/js-view/lightbox-2.6.min.js"></script>
+        <script src="https://cdn.jsdelivr.net/npm/sweetalert2@10"></script>
+        <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/pannellum@2.5.6/build/pannellum.css"/>
+        <script type="text/javascript" src="https://cdn.jsdelivr.net/npm/pannellum@2.5.6/build/pannellum.js"></script>
         <title>AEROSYNERGY</title>
     <style>
         .card {
@@ -352,6 +355,14 @@
             "Street": street
         };
 
+
+
+        customer = L.tileLayer.wms("http://121.121.232.54:7090/geoserver/cite/wms", {
+            layers: 'cite:pano_layer',
+            format: 'image/png',
+			maxZoom: 21,
+            transparent: true
+        }, {buffer: 10});
 
 
         boundary = L.tileLayer.wms("http://121.121.232.54:7090/geoserver/cite/wms", {
