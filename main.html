@@ -28,6 +28,8 @@
         <script src="https://cdn.jsdelivr.net/npm/sweetalert2@10"></script>
         <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/pannellum@2.5.6/build/pannellum.css"/>
         <script type="text/javascript" src="https://cdn.jsdelivr.net/npm/pannellum@2.5.6/build/pannellum.js"></script>
+        <link rel="stylesheet" href="assets/lib/window-engine.css" />
+        <script src="assets/lib/window-engine.js"></script>
         <title>AEROSYNERGY</title>
     <style>
         .card {
@@ -60,7 +62,12 @@
   display: none;
 }
     </style>
-
+    <style>
+        #panorama {
+            width: 400px;
+            height: 400px;
+        }
+    </style>
 
 </head>
 
@@ -339,12 +346,20 @@
 
 
         </div>
+        <div id="wg" class="windowGroup">
+
+        </div>
+
+    <div id="wg1" class="windowGroup">
+
+    </div>
     </div>
 
     <script src="./assets/lib/leaflet-groupedlayercontrol/leaflet.groupedlayercontrol.js"></script>
 
     <script type="text/javascript">
         var baseLayers
+        var identifyme='';
         map = L.map('map').setView([3.016603, 101.858382], 5);
         // check =  document.getElementById('map').style.cursor = 'pointer'
 
@@ -476,10 +491,17 @@
 
 
 function addpanolayer(){
-    customer.addTo(map);
+var checkbox=document.getElementById("petroling_a");
+
+if(checkbox.checked==false){
+    map.off('click');
+    map.removeLayer(customer)
+    map.removeLayer(identifyme)
+}else{
+    map.addLayer(customer)
         map.on('click', function(e) {
             //map.off('click');
-           // $("#wg").html('');
+            $("#wg").html('');
             // Build the URL for a GetFeatureInfo
             var url = getFeatureInfoUrl(
                 map,
@@ -507,7 +529,7 @@ function addpanolayer(){
                         // '<canvas id="canvas" width="400" height="480">' +
                         // '</canvas>' +
                         '<div id="panorama" width="400px" height="480px"></div>'+
-					    '<div class="row"><button style="margin-left: 30%;" onclick=preNext("pre") class="btn btn-success">Previous</button><button  onclick=preNext("next")  style="float: right;margin-right: 35%;" class="btn btn-success">Next</button></div>'
+					    // '<div class="row"><button style="margin-left: 30%;" onclick=preNext("pre") class="btn btn-success">Previous</button><button  onclick=preNext("next")  style="float: right;margin-right: 35%;" class="btn btn-success">Next</button></div>'
 
                         '</div>' +
                         '</div>'
@@ -548,6 +570,7 @@ function addpanolayer(){
 
 
         });
+    }
     }
 
 
