@@ -259,7 +259,7 @@
                     <details class="mb-3">
                         <summary><strong>Patrolling 3rd Party Digging Activities</strong> </summary>
                        <ul >
-                        <li > <input type="checkbox" name="" id="petroling_a"> <label for="petroling_a">Pemeriksaan di Jalan</label> </li>
+                        <li > <input  type="checkbox" name="" id="petroling_a" onclick="addpanolayer()"> <label for="petroling_a" >Pemeriksaan di Jalan</label> </li>
                         <li ><input type="checkbox" name="" id="petroling_b"> <label for="petroling_b">Mengeluarkan notis</label> </li>
                         <li><input type="checkbox" name="" id="petroling_c"> <label for="petroling_c">Menyelia kerja-kerja korekan</label> </li>
                         <li><input type="checkbox" name="" id="petroling_d"> <label for="petroling_d">Report</label> </li>
@@ -472,6 +472,84 @@
         })
         map.addLayer(boundary3)
         map.setView([2.59340882301331, 101.07054901123], 8);
+
+
+
+function addpanolayer(){
+    customer.addTo(map);
+        map.on('click', function(e) {
+            //map.off('click');
+           // $("#wg").html('');
+            // Build the URL for a GetFeatureInfo
+            var url = getFeatureInfoUrl(
+                map,
+                customer,
+                e.latlng,
+                {
+                    'info_format': 'application/json',
+                    'propertyName': 'NAME,AREA_CODE,DESCRIPTIO'
+                }
+            );
+            $.ajax({
+                url: 'services/proxy.php?url='+encodeURIComponent(url),
+                dataType: 'JSON',
+                //data: data,
+                method: 'GET',
+                async: false,
+                success: function callback(data) {
+
+                    //  alert(data
+                    var str='<div id="window1" class="window">' +
+                        '<div class="green">' +
+                        '<p class="windowTitle">Pano Images</p>' +
+                        '</div>' +
+                        '<div class="mainWindow">' +
+                        // '<canvas id="canvas" width="400" height="480">' +
+                        // '</canvas>' +
+                        '<div id="panorama" width="400px" height="480px"></div>'+
+					    '<div class="row"><button style="margin-left: 30%;" onclick=preNext("pre") class="btn btn-success">Previous</button><button  onclick=preNext("next")  style="float: right;margin-right: 35%;" class="btn btn-success">Next</button></div>'
+
+                        '</div>' +
+                        '</div>'
+
+                    $("#wg").html(str);
+
+                   
+                    console.log(data)
+					if(data.features.length!=0){
+					 createWindow(1);	
+					selectedId=data.features[0].id.split('.')[1];
+                    // var canvas = document.getElementById('canvas');
+                    // var context = canvas.getContext('2d');
+                    // context.clearRect(0,0 ,canvas.width,canvas.height)
+                    //     img.src = data.features[0].properties.image_path;
+                    //     init_pano('canvas')
+                    // setTimeout(function () {
+                    //     init_pano('canvas')
+                    // },1000)
+                    pannellum.viewer('panorama', {
+                        "type": "equirectangular",
+                        "panorama": "http://121.121.232.54:88/"+data.features[0].properties.photo,
+						"compass": true,
+                        "autoLoad": true
+                    });
+					
+					if(identifyme!=''){
+                         map.removeLayer(identifyme)
+                        }
+                        identifyme = L.geoJSON(data.features[0].geometry).addTo(map);
+					
+					}
+
+                }
+            });
+
+
+
+
+        });
+    }
+
 
         function bangi() {
             map.removeLayer(boundary3)
