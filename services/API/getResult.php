@@ -6,18 +6,18 @@ include("./Connection.php");
 
 
 if ($_SERVER["REQUEST_METHOD"] == "POST") {
-
+    try {
     if (!isset($_POST['function_name']) || !isset($_POST['qury'])) {
         $response = array(
             'success' => false,
             'status' => 400,
             'message' => 'Bad Request'
         );
-        echo json_encode($response);
-        exit;
-    }
+      
+    }else{
 
-    try {
+
+   
         $stmt = $pdo->prepare($_POST['qury']);
         $stmt->execute();
 
@@ -35,10 +35,13 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
             'status' => 200,
             'data'=>$record
         );
-        echo json_encode($response);
-        exit;
+       
 
-        
+   }  
+   $pdo = null;
+   echo json_encode($response);
+   exit;
+     
     } catch (PDOException $e) {
         $response = array(
             'success' => false,
@@ -49,7 +52,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
         exit;
     }
 
-
+  
 
 
 }
