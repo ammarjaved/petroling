@@ -28,8 +28,11 @@
 
     <style>
         .card {
-            border: 1px solid;
+            /* border: 1px solid; */
 
+        }
+        .card-header{
+            font-weight: 700;
         }
 
         #map {
@@ -50,10 +53,14 @@
         </div>
     </nav>
 
+    <h6>PEMERIKSAAN KEJANGGALAN PEPASANGAN TNB &
+        SENGGARAAN BUKAN ELEKTRIK TALIAN ATAS DI SELANGOR UNTUK DISTRIBUTION NETWORK
+        DIVISION, TNB</h6>
+
     <div class="row text-center m-2">
 
         <div class="card p-0 mb-3">
-            <div class="card-header " style="background-color: purple; color: white;">B1</div>
+            <div class="card-header " >B1</div>
             <div class="card-body row">
 
 
@@ -89,7 +96,7 @@
 
 
         <div class="card p-0 mb-3">
-            <div class="card-header " style="background-color: red; color: white;">B2</div>
+            <div class="card-header "  >B2</div>
             <div class="card-body row">
 
 
@@ -117,7 +124,7 @@
 
 
         <div class="card p-0 mb-3">
-            <div class="card-header " style="background-color: green; color: white;">B4</div>
+            <div class="card-header "  >B4</div>
             <div class="card-body row">
 
 
@@ -163,7 +170,7 @@
 
 
         <div class="card p-0 mb-3">
-            <div class="card-header " style="background-color: skyblue; color: white;">W1</div>
+            <div class="card-header " >W1</div>
             <div class="card-body row">
 
 
@@ -356,12 +363,19 @@
             position: 'topright'
             // groupCheckboxes: true
         }).addTo(map);
+         var lc = document.getElementsByClassName('leaflet-control-layers')
+         lc[0].style.display = "none";
 
 
         var bangi_status = false;
+        var addTOmap = false;
+        var boundary2 = '';
 
 
         function bangi() {
+            if (boundary2 !== '') {
+                map.removeLayer(boundary2)
+            }
             if (bangi_status == false) {
 
                 map.addLayer(boundary);
@@ -370,9 +384,12 @@
                 map.addLayer(ugc);
                 map.addLayer(street_light);
                 map.addLayer(pole);
+                
+               
 
                 map.setView([3.016603, 101.858382], 11);
                 bangi_status = true
+                lc[0].style.display = 'block';
 
             } else {
                 map.removeLayer(boundary);
@@ -381,13 +398,15 @@
                 map.removeLayer(ugc);
                 map.removeLayer(street_light);
                 map.removeLayer(pole);
+              
                 map.setView([3.016603, 101.858382], 5);
                 bangi_status = false
+                lc[0].style.display = 'none';
             }
         }
 
         function activeSelectedLayerOther(val) {
-
+         
             
             var sel_lyr = ''
 
@@ -505,8 +524,11 @@
         }
 
 
-        var boundary2 = '';
+       
         function addRemoveBundary(param , paramY, paramX) {
+            if (bangi_status == true) {
+            bangi();
+           }
             
             if (boundary2 !== '') {
                 map.removeLayer(boundary2)
