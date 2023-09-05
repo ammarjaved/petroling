@@ -58,7 +58,7 @@
 
 
 
-                <div class="col-md-4 " onclick="searchTable('Complete')" style="cursor: pointer;">
+                <div class="col-md-4 " onclick="addRemoveBundary('PETALING JAYA', 3.1128074178475 , 101.605270457169)" style="cursor: pointer;">
 
                     <div class="  p-1" style="background-color:  purple !important;color:white">
                         <p style="font-weight: 600;">PJ</p>
@@ -67,7 +67,7 @@
 
                 </div>
 
-                <div class="col-md-4 " onclick="searchTable('Inprogress')" style="cursor: pointer;">
+                <div class="col-md-4 " onclick="addRemoveBundary('RAWANG' , 3.47839445121726, 101.622905486475)" style="cursor: pointer;">
 
                     <div class=" mx-1   p-1" style="background-color:  purple !important;color:white">
                         <p style="font-weight: 600;">RAWANG</p>
@@ -75,7 +75,7 @@
                     </div>
 
                 </div>
-                <div class="col-md-4 " onclick="searchTable('KIV')" style="cursor: pointer;">
+                <div class="col-md-4 " onclick="addRemoveBundary('KUALA SELANGOR' , 3.40703209426401, 101.317426926947)" style="cursor: pointer;">
 
                     <div class="ml-0  p-1" style="background-color:  purple !important; color:white;">
                         <p style="font-weight: 600;">KUALA SELENGOR </p>
@@ -94,7 +94,7 @@
 
 
 
-                <div class="col-md-6 " onclick="searchTable('Complete')" style="cursor: pointer;color:white">
+                <div class="col-md-6 " onclick="addRemoveBundary('KLANG' , 3.08428642705789, 101.436185279023)" style="cursor: pointer;color:white">
 
                     <div class=" p-1" style="background-color:  red !important;">
                         <p style="font-weight: 600;">KLANG</p>
@@ -103,7 +103,7 @@
 
                 </div>
 
-                <div class="col-md-6 " onclick="searchTable('Inprogress')" style="cursor: pointer;color:white">
+                <div class="col-md-6 " onclick="addRemoveBundary('PELABUHAN KLANG' , 2.98188527916042, 101.324234779569)" style="cursor: pointer;color:white">
 
                     <div class=" mx-1   p-1" style="background-color:  red !important;">
                         <p style="font-weight: 600;">PORT KLANG</p>
@@ -122,7 +122,7 @@
 
 
 
-                <div class="col-md-3 " onclick="searchTable('Complete')" style="cursor: pointer;color:white">
+                <div class="col-md-3 " onclick="addRemoveBundary('CHERAS' , 3.14197346621987, 101.849883983416)" style="cursor: pointer;color:white">
 
                     <div class=" p-1" style="background-color:  green !important;">
                         <p style="font-weight: 600;">CHERAS</p>
@@ -131,7 +131,7 @@
 
                 </div>
 
-                <div class="col-md-3 " onclick="searchTable('Inprogress')" style="cursor: pointer;">
+                <div class="col-md-3 " onclick="addRemoveBundary('BANTING' , 2.82111390453244 , 101.505890775541)" style="cursor: pointer;">
 
                     <div class=" mx-1   p-1 text-capitalize" style="background-color:  green !important;color:white">
                         <p style="font-weight: 600;">BANTING/SEPANG</p>
@@ -149,7 +149,7 @@
 
                 </div>
 
-                <div class="col-md-3 " onclick="searchTable('Inprogress')" style="cursor: pointer;">
+                <div class="col-md-3 " onclick="addRemoveBundary('PUTRAJAYA & CYBERJAYA' , 2.92875032271019 , 101.675338316575)" style="cursor: pointer;">
 
                     <div class=" mx-1   p-1 t" style="background-color:  green !important;color:white">
                         <p style="font-weight: 600;">PUTRAJAYA/CYBERJAYA/PUCHONG</p>
@@ -168,7 +168,7 @@
 
 
 
-                <div class="col-md-12 " onclick="searchTable('Complete')" style="cursor: pointer;">
+                <div class="col-md-12 " onclick="addRemoveBundary('KUALA LUMPUR PUSAT' , 3.14925905877391 , 101.754098819705)" style="cursor: pointer;">
 
                     <div class="  p-1" style="background-color:  skyblue !important;color:white">
                         <p style="font-weight: 600;">KL PUSAT</p>
@@ -503,6 +503,35 @@
             return url.toString();
 
         }
+
+
+        var boundary2 = '';
+        function addRemoveBundary(param , paramY, paramX) {
+            
+            if (boundary2 !== '') {
+                map.removeLayer(boundary2)
+            }
+                boundary2 = L.tileLayer.wms("http://121.121.232.54:7090/geoserver/cite/wms", {
+            layers: 'cite:aero_apks',
+            format: 'image/png',
+            cql_filter: "station='"+param+"'",
+            maxZoom: 21,
+            transparent: true
+        }, {
+            buffer: 10
+        })
+        map.addLayer(boundary2)
+
+        map.setView([parseFloat(paramY), parseFloat(paramX)], 11);
+
+        
+           
+           
+
+        }
+
+ 
+
     </script>
 </body>
 
