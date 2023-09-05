@@ -439,8 +439,8 @@
             position: 'topright'
             // groupCheckboxes: true
         }).addTo(map);
-         var lc = document.getElementsByClassName('leaflet-control-layers')
-         lc[0].style.display = "none";
+        //  var lc = document.getElementsByClassName('leaflet-control-layers')
+        //  lc[0].style.display = "none";
 
 
         var bangi_status = false;
@@ -476,7 +476,7 @@
 
                 map.setView([3.016603, 101.858382], 11);
                 bangi_status = true
-                lc[0].style.display = 'block';
+              //  lc[0].style.display = 'block';
 
             } else {
                 map.removeLayer(boundary);
@@ -488,7 +488,7 @@
               
                 map.setView([3.016603, 101.858382], 5);
                 bangi_status = false
-                lc[0].style.display = 'none';
+             //   lc[0].style.display = 'none';
             }
         }
 
