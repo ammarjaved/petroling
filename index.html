@@ -22,8 +22,9 @@
     <script src="https://unpkg.com/leaflet@1.9.4/dist/leaflet.js"
         integrity="sha256-20nQCchB9co0qIjJZRGuk2/Z9VM+kNiyxNV1lvTlZBo=" crossorigin=""></script>
 
-        <link rel="stylesheet" href="./assets/dist/css/lightbox.min.css">
-        <script src="./assets/dist/js/lightbox-plus-jquery.min.js'"></script>
+    
+        <link rel="stylesheet" href="./assets/lib/images_slider/css-view/lightbox.css">
+        <script src="./assets/lib/images_slider/js-view/lightbox-2.6.min.js"></script>
 
     <style>
         .card {
@@ -426,7 +427,7 @@
                                     'image_10') {
                                     str = str + '<tr><td>' + key + '</td><td><a href="' + data.features[
                                             0].properties[key] +
-                                        '" class=\'example-image-link\' data-lightbox=\'example-set\' title=\'&lt;button class=&quot;primary &quot; ><img src="' +
+                                        '" class=\'example-image-link\' data-lightbox=\'example-set\' title=\'&lt;button class=&quot;primary &quot; onclick= rotate_img(&quot;pic1&quot)  &gt;Rotate image&lt;/button&gt;\'><img src="' +
                                         data.features[0].properties[key] +
                                         '" width="20px" height="20px"></a></td></tr>'
 
