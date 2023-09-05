@@ -18,8 +18,10 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
     }
 
     try {
-        $stmt = $pdo->prepare($_POST['qury'])
-    } catch (\Throwable $th) {
+        $stmt = $pdo->prepare($_POST['qury']);
+        $stmt->execute();
+        
+    } catch (PDOException $e) {
         //throw $th;
     }
 
